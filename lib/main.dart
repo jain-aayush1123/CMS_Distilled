@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'src/features/home/presentation/screens/image_selection.dart';
+
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -8,13 +10,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'CMS Distilled',
       debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        body: Center(
-          child: Container(
-            child: Text('Hello World'),
-          ),
-        ),
-      ),
+      home: GetImageScreen(),
     );
   }
 }
