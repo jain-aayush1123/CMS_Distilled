@@ -13,8 +13,12 @@ class _GetImageScreenState extends State<GetImageScreen> {
   File _image;
   final picker = ImagePicker();
 
-  Future getImage() async {
-    final pickedFile = await picker.getImage(source: ImageSource.camera);
+  Future getImage(bool isCamera) async {
+    final pickedFile = isCamera
+        ? await picker.getImage(source: ImageSource.camera)
+        : await picker.getImage(source: ImageSource.gallery);
+
+    // final pickedFile = await picker.getImage(source: ImageSource.camera);
 
     setState(() {
       _image = File(pickedFile.path);
@@ -35,10 +39,23 @@ class _GetImageScreenState extends State<GetImageScreen> {
       body: Center(
         child: _image == null ? Text('No image selected.') : Image.file(_image),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: getImage,
-        tooltip: 'Pick Image',
-        child: Icon(Icons.add_a_photo),
+      floatingActionButton: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          FloatingActionButton(
+            heroTag: "btn1",
+            onPressed: () => getImage(true),
+            tooltip: 'Pick Image',
+            child: Icon(Icons.add_a_photo),
+          ),
+          SizedBox(width: 10),
+          FloatingActionButton(
+            heroTag: "btn2",
+            onPressed: () => getImage(false),
+            tooltip: 'Pick Image',
+            child: Icon(Icons.photo),
+          ),
+        ],
       ),
     );
   }
