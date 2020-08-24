@@ -9,7 +9,26 @@ class TextDetectorPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    // TODO: Define painter
+    final double scaleX = size.width / absoluteImageSize.width;
+    final double scaleY = size.height / absoluteImageSize.height;
+
+    Rect scaleRect(TextContainer container) {
+      return Rect.fromLTRB(
+        container.boundingBox.left * scaleX,
+        container.boundingBox.top * scaleY,
+        container.boundingBox.right * scaleX,
+        container.boundingBox.bottom * scaleY,
+      );
+    }
+
+    final Paint paint = Paint()
+      ..style = PaintingStyle.stroke
+      ..color = Colors.red
+      ..strokeWidth = 2.0;
+
+    for (TextElement element in elements) {
+      canvas.drawRect(scaleRect(element), paint);
+    }
   }
 
   @override
