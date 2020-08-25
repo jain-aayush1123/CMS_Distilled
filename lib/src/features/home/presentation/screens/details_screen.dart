@@ -95,6 +95,40 @@ class _DetailsScreenState extends State<DetailsScreen> {
       topLeft: Radius.circular(24.0),
       topRight: Radius.circular(24.0),
     );
+    return DetailsScreenUI(
+      radius: radius,
+      controller: _controller,
+      width: width,
+      imageSize: _imageSize,
+      elements: _elements,
+      imageFile: imageFile,
+    );
+  }
+}
+
+class DetailsScreenUI extends StatelessWidget {
+  const DetailsScreenUI({
+    Key key,
+    @required this.radius,
+    @required TextEditingController controller,
+    @required this.width,
+    @required Size imageSize,
+    @required List<TextElement> elements,
+    @required this.imageFile,
+  })  : _controller = controller,
+        _imageSize = imageSize,
+        _elements = elements,
+        super(key: key);
+
+  final BorderRadiusGeometry radius;
+  final TextEditingController _controller;
+  final double width;
+  final Size _imageSize;
+  final List<TextElement> _elements;
+  final File imageFile;
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       body: SlidingUpPanel(
         defaultPanelState: PanelState.OPEN,
